@@ -11,8 +11,8 @@ pkt_count = 0
 NO_DATA = ''
 LOCK_CMD = 'e703'
 UNLOCK_CMD = 'e705'
-INIT_CMD = 'e70f'
-INIT_DATA = '15031301471205'
+INIT_CMDS = ('e707','e74d','e702','e70a','e718','e709','e742','e70f')
+INIT_DATAS = ('','','','','','','01010101','15031301471205')
 PARSE_LOOKUP = {'e709':"parse_initack",'e727':"parse_lockstatus",'e729':"parse_newlockcode",'e742':"parse_error"}
 
 def generate_packet(cmd,data):
@@ -89,8 +89,8 @@ def parse_newlockcode(data):
 def parse_error(data):
     return data
 
-def generate_init_packet():
-    return unhexlify(generate_packet(INIT_CMD,INIT_DATA))
+def generate_init_packet(num):
+    return unhexlify(generate_packet(INIT_CMD[num],INIT_DATA[num]))
 
 def generate_lock_packet():
     return unhexlify(generate_packet(LOCK_CMD,''))

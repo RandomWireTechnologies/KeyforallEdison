@@ -6,6 +6,7 @@
 
 import kwikset_protocol
 import serial
+import time
 import os
 import threading
 from binascii import hexlify,unhexlify
@@ -46,7 +47,10 @@ def init_kwikset_lock():
     if ser == None:
         print "Serial Port not setup"
         return False
-    ser.write(kwikset_protocol.generate_init_packet())
+    for num in range(8):
+        ser.write(kwikset_protocol.generate_init_packet(num))
+        time.sleep(0.3)
+    
 
 def unlock():
     global ser
