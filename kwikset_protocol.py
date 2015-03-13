@@ -90,7 +90,7 @@ def parse_error(data):
     return data
 
 def generate_init_packet(num):
-    return unhexlify(generate_packet(INIT_CMD[num],INIT_DATA[num]))
+    return unhexlify(generate_packet(INIT_CMDS[num],INIT_DATAS[num]))
 
 def generate_lock_packet():
     return unhexlify(generate_packet(LOCK_CMD,''))
