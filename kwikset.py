@@ -8,6 +8,7 @@ import kwikset_protocol
 import serial
 import os
 import threading
+from binascii import hexlify,unhexlify
 
 ser = None
 
@@ -59,4 +60,24 @@ def lock():
     if ser == None:
         print "Serial Port not setup"
         return False
-    ser.write(kwikset_protocol.generate_lock_packet())       
+    ser.write(kwikset_protocol.generate_lock_packet())
+    
+def get_status():
+    global ser
+    if ser == None:
+        print "Serial Port not setup"
+        return False
+    limit = 0 
+    MAX_TRIES = 20
+    header = None
+    while (limit < MAX_TRIES) and (header != '\xbd'):
+        header = ser.read()
+        limit += 1
+    if (limit == MAX_TRIES):
+        print "No start byte found in %d characters"%MAX_TRIES
+        return False
+    hex_length = hexlify(ser.read())
+    length = int(hex_length,16)
+    pkt = "bd%s%s"%(hex_length,hexlify(ser.read(length)))
+    return kwikset_protocol.parse_packet(pkt)
+    
