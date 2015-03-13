@@ -6,7 +6,7 @@
 
 from binascii import hexlify,unhexlify
 
-global pkt_count = 0
+pkt_count = 0
 
 NO_DATA = ''
 LOCK_CMD = 'e703'
