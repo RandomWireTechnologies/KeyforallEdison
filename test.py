@@ -6,7 +6,7 @@ kwikset.setup_arduinobreakout_pins()
 
 lock = raw_input("What do you want to do? ")
 
-if(lock == 'lock'):
+if(lock == "lock"):
     kwikset.lock()
 else:
     kwikset.unlock()
